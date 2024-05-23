@@ -1,0 +1,48 @@
+﻿@model Pochemychka.Models.ResultDiapason
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>ResultDiapason</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="IdTest" class="control-label"></label>
+                <input asp-for="IdTest" class="form-control" />
+                <span asp-validation-for="IdTest" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartDiapason" class="control-label"></label>
+                <input asp-for="StartDiapason" class="form-control" />
+                <span asp-validation-for="StartDiapason" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndDiapason" class="control-label"></label>
+                <input asp-for="EndDiapason" class="form-control" />
+                <span asp-validation-for="EndDiapason" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TextResult" class="control-label"></label>
+                <input asp-for="TextResult" class="form-control" />
+                <span asp-validation-for="TextResult" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

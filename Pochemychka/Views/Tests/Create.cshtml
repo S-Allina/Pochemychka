@@ -1,0 +1,62 @@
+﻿@model Pochemychka.ViewModels.TestViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+<head>
+    <link rel="stylesheet" href="~/css/Form.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Card.css" asp-append-version="true" />
+
+</head>
+ 
+<div class="containerForm">
+    <div class="heading">Добавление теста</div>
+    <form class="form" asp-action="Create">
+        <input placeholder="Название" id="name" asp-for="NameTest" type="text"  class="input"   required="" />
+        <span asp-validation-for="NameTest"></span>
+        @if (Model == null)
+        {
+            <input value="Добавить оценивания" type="submit" class="login-button" />
+        }else{
+            <div class="heading">Оценивание</div>
+            @if (Model.ResultDiapasons.Count() > 0)
+            {
+                @foreach (var i in Model.ResultDiapasons)
+                {
+                    <p>@i.StartDiapason - @i.EndDiapason: @i.TextResult</p>
+                    <hr/>
+                }
+            }
+           else
+                {
+                    <p>Оценивания пока не добавлены</p>
+                }
+            }
+    </form>
+
+    @if (ViewBag.isCreated == true)
+    {
+        <p>@ViewBag.TestName</p>
+        <form class="form" asp-controller="ResultDiapasons" asp-action="Create">
+                 <div class="containerForButton">
+            <input placeholder="Начало диапазона" id="startdiapason" name="StartDiapason"  type="number" class="input" required="" />
+            <input placeholder="конец диапазона" id="EndDiapason" name="EndDiapason" type="number" class="input" required="" />
+           </div>
+            <textarea placeholder="Текст результата" class="input" required="" name="TextResult"></textarea>
+            <input value="Добавить" type="submit" class="login-button" />
+            @if (ViewBag.isCreatedResult == true)
+            {
+          <a asp-action="Index" class="button" >Готово</a>
+            }
+        </form>
+      
+    }
+    <span>@ViewBag.message</span>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

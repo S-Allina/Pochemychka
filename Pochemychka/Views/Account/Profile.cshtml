@@ -1,0 +1,27 @@
+﻿@model Pochemychka.Models.User
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/Form.css" asp-append-version="true" />
+</head>
+
+<div class="containerForm">
+    <div class="heading">Профиль</div>
+    <form class="form" asp-action="Edit">
+        <input class="input" placeholder="Имя" asp-for="FirstName">
+        <span asp-validation-for="FirstName"></span>
+        <input class="input" placeholder="Фамилия" asp-for="LastName">
+        <span asp-validation-for="LastName"></span>
+        <input class="input" asp-for="Email" placeholder="Email" type="email">
+        <span asp-validation-for="Email"></span>
+        <input class="input" asp-for="UserName" placeholder="логин" type="text">
+        <span asp-validation-for="UserName"></span>
+        <input value="Сохранить" type="submit" class="login-button" />
+        <a asp-action="Index" asp-controller="Tests" class="login-button">На главную</a>
+
+    </form>
+    <div class="social-account-container">
+    </div>
+</div>

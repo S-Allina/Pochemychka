@@ -1,0 +1,22 @@
+﻿
+@model Pochemychka.Models.ResultDiapason
+
+@{
+    ViewData["Title"] = "End";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/Form.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Question.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Card.css" asp-append-version="true" />
+
+</head>
+<div class="containerForm">
+    <div class="heading">Результат</div>
+        <p>Набрано баллов: @ViewBag.count</p>
+        <p>Вывод: @Model.TextResult</p>
+<a asp-action="Index" class="button" asp-controller="Tests">
+       Назад
+</a>  
+</div>
+

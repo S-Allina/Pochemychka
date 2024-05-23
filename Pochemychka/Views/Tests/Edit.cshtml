@@ -1,0 +1,73 @@
+﻿@model Pochemychka.ViewModels.TestViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<head>
+    <link rel="stylesheet" href="~/css/Form.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Card.css" asp-append-version="true" />
+
+</head>
+
+<div class="containerForm">
+    <div class="heading">Редактирование теста</div>
+    <form class="form" asp-action="Edit" method="post">
+        <input hidden asp-for="IdTest" />
+
+        <input placeholder="Название" id="name" asp-for="NameTest" type="text" class="input" required="" />
+        <span asp-validation-for="NameTest"></span>
+       
+            <input value="Сохранить" type="submit" class="login-button" />
+        @if (ViewBag.isCreatedResult != false)
+        {
+            <a asp-action="Index" class="login-button">На главную</a>
+        }
+       </form>
+            <div class="heading">Оценивание</div>
+            @if (Model.ResultDiapasons.Count() > 0)
+            {
+                @foreach (var i in Model.ResultDiapasons)
+                {
+                    <form class="form" asp-controller="ResultDiapasons" asp-action="Edit" method="post">
+                        <input hidden name="IdDiapasonResult" value="@i.IdDiapasonResult"/>
+                <input hidden name="IdTest" value="@i.IdTest" />
+                <div class="containerForButton">
+                        <input placeholder="Начало диапазона" id="startdiapason" value="@i.StartDiapason" name="StartDiapason" type="number" class="input" required="" />
+                        <input placeholder="конец диапазона" id="EndDiapason" value="@i.EndDiapason" name="EndDiapason" type="number" class="input" required="" />
+                </div>
+                        <textarea placeholder="Текст результата" class="input" required="" name="TextResult">@i.TextResult</textarea>
+                        <input value="Сохранить" type="submit" class="login-button" />
+                <a asp-controller="ResultDiapasons" asp-action="Delete" class="login-button" asp-route-id="@i.IdDiapasonResult">Удалить</a>
+                   
+                    </form>
+                    <hr />
+                }
+            }
+            else
+            {
+                <p>Оценивания пока не добавлены</p>
+            }
+
+
+
+
+    <form class="form" asp-controller="ResultDiapasons" asp-action="Create" asp-route-returnAction="Edit">
+        <input name="idT" hidden value="@Model.IdTest"/>
+        <div class="containerForButton">
+            <input placeholder="Начало диапазона" id="startdiapason" name="StartDiapason" type="number" class="input" required="" />
+            <input placeholder="конец диапазона" id="EndDiapason" name="EndDiapason" type="number" class="input" required="" />
+            </div>
+            <textarea placeholder="Текст результата" class="input" required="" name="TextResult"></textarea>
+            <input value="Добавить" type="submit" class="login-button" />
+        </form>
+
+    
+    <span>@ViewBag.message</span>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

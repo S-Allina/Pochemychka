@@ -1,0 +1,24 @@
+﻿@model Pochemychka.ViewModels.LoginAndRegisterModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/Form.css" asp-append-version="true" />
+</head>
+
+<div class="containerForm">
+    <div class="heading">Авторизация</div>
+    <form class="form" asp-action="Login">
+        <input placeholder="Логин" id="email" asp-for="Name" type="text" class="input" required="" />
+        <span asp-validation-for="Name"></span>
+        <input placeholder="Пароль"  id="password"  asp-for="Password"  type="password" class="input" required="" />
+        <span asp-validation-for="Password"></span>
+
+        <input value="Войти" type="submit" class="login-button" />
+        <div asp-validation-summary="All" class="text-danger"></div>
+    </form>
+    <div class="social-account-container">
+    </div>
+    <span class="agreement">Ещё нет аккаунта? <a asp-action="Register">Регистрация</a></span>
+</div>

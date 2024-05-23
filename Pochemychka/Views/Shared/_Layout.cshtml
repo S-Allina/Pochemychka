@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Pochemychka</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Pochemychka.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="Header">
+            @if(User.Identity.IsAuthenticated){
+           <div><p class="HeaderTitle">@User.Identity.Name</p></div>
+            }
+           <div class="HeaderUser">
+                <div class="HeaderUserInfoContainer">
+                           
+                </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="HeaderUserButtons">
+                        <a asp-controller="Tests" asp-action="Index"><img src="~/img/tests.jpg" /></a>
+                        <a asp-controller="AnswersUsers" asp-action="Index" ><img src="~/img/graph_4314499.png" /></a>
+
+                        <a asp-controller="Account" asp-action="Profile" asp-route-name="@User.Identity.Name"><img src="~/img/UserEdit.png" /></a>
+                        <a asp-controller="Account" asp-action="Delete"><img src="~/img/UserDelete.png" /></a>
+
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+                        {
+                            <a asp-controller="Account" asp-action="Users" ><img src="~/img/users.png" /></a>
+                        }
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a asp-controller="Account" asp-action="Logout"><img src="~/img/logout.jpg" /></a>
+                        }
+                        else
+                        {
+                            <a asp-controller="Account" asp-action="Login"><img src="~/img/login.png" /></a>
+                        }
+                    </div>
+                }
+                        
+                
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+   @* <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - Pochemychka - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>*@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

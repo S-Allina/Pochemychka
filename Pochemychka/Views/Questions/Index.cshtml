@@ -1,0 +1,112 @@
+﻿@model IEnumerable<Pochemychka.Models.Question>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<head>
+    <link rel="stylesheet" href="~/css/Card.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Form.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Question.css" asp-append-version="true" />
+</head>
+@if(Model.Count() ==0){
+    @if (User.IsInRole("admin"))
+    {
+        <div class="formCreate">
+        <a asp-action="Create" class="button" style="width:fit-content" asp-route-idT="@ViewBag.idT">
+            Добавить</a>
+        </div>
+    }
+}
+@if(Model.Count()>0){
+@foreach (var item in Model)
+
+{
+    @if (User.IsInRole("admin"))
+    {
+        <div class="CreateCategoryButtons">
+
+                <a asp-action="Create" class="button" style="width:fit-content" asp-route-idT="@ViewBag.idT">
+                    Добавить</a>
+            <a asp-action="Delete" class="button" style="width:fit-content" asp-route-idT="@ViewBag.idT" asp-route-id="@item.IdQuestion">
+                   Удалить </a>
+        </div>
+    }
+    <div class="containerForm">
+            <div class="heading">Вопрос: @await Component.InvokeAsync("Count", new {idT = item.IdTest, idQ=item.IdQuestion})</div>
+            <form class="form" asp-action="Dalee" asp-controller="Questions">
+
+        <input name="idQ" class="none" value="@item.IdQuestion" />
+        <input value="@item.IdTest" name="idT" class="none" />
+        <span class="spanQuestion1 question"><b>Вопрос:</b> @item.TextQuetion</span>
+
+
+                <div class="radio-input-wrapper">
+                     @if (item.Option1 != null)
+                        {
+                    <label class="label">
+                            <input value="@item.CountPointOfOption1" name="PointsCount" id="value-2" class="radio-input" type="radio">
+                        <div class="radio-design"></div>
+                            <div  class="label-text" >@item.Option1</div>
+                    </label>
+                        }
+                    @if (item.Option2 != null)
+                    {
+                        <label class="label">
+                            <input value="@item.CountPointOfOption2" name="PointsCount" id="value-3" class="radio-input" type="radio">
+                        <div class="radio-design"></div>
+                        <div class="label-text">@item.Option2</div>
+                    </label>
+                    }
+                    @if (item.Option3 != null)
+                    {
+                        <label class="label">
+                            <input value="@item.CountPointOfOption3" name="PointsCount" id="value-4" class="radio-input" type="radio">
+                        <div class="radio-design"></div>
+                        <div class="label-text">@item.Option3</div>
+                    </label>
+                    }
+                    @if (item.Option4 != null)
+                    {
+                        <label class="label">
+                            <input value="@item.CountPointOfOption4" name="PointsCount" id="value-5" class="radio-input" type="radio">
+                            <div class="radio-design"></div>
+                            <div class="label-text">@item.Option4</div>
+                        </label>
+                    }
+                    @if (item.Option5 != null)
+                    {
+                        <label class="label">
+                            <input value="@item.CountPointOfOption5" name="PointsCount" id="value-6" class="radio-input" type="radio">
+                            <div class="radio-design"></div>
+                            <div class="label-text">@item.Option5</div>
+                        </label>
+                    }
+                    </div>
+                    <input name="answer" type="text" hidden id="CorrectAnswer" />
+                
+        <button type="submit" name="button" class="button">
+            @ViewBag.Button
+           
+        </button>
+
+        @*        <button type="submit" name="button" class="cta">
+    <span>@ViewBag.Button</span>
+    <svg viewBox="0 0 13 10" height="10px" width="15px">
+    <path d="M1,5 L11,5"></path>
+    <polyline points="8 1 12 5 8 9"></polyline>
+    </svg>
+    </button>*@
+
+    </form>
+    </div>
+    @*<a asp-action="Index" class="formCreate" asp-route-answer="@Request.Form["value"]" asp-route-answer="answer" asp-route-idQ="@item.IdQuestion" asp-route-idT="@item.IdTest">Далее</a>*@
+   
+
+    @*<a asp-action="Edit" asp-route-id="@item.IdQuestion">Edit</a>
+    <a asp-action="Details" asp-route-id="@item.IdQuestion">Details</a>
+    <a asp-action="Delete" asp-route-id="@item.IdQuestion">Delete</a>*@
+
+}
+}
+<script src="~/js/question.js"></script>
+

@@ -1,0 +1,137 @@
+﻿@model Pochemychka.Models.Question
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+@*<h1>Создание вопроса</h1>*@
+<head>
+    <link rel="stylesheet" href="~/css/Form.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Question.css" asp-append-version="true"/>
+</head>
+<hr />
+
+
+    
+<div class="containerForm">
+    <div class="heading">Добавление вопроса</div>
+    <form asp-action="Create" class="form" enctype="multipart/form-data">
+        <input name="idT" hidden  value="@ViewBag.IdT" />
+        <input asp-for="IdTest" hidden value="@ViewBag.IdT"/>
+        <textarea asp-for="TextQuetion" style="width:100%" class="input" placeholder="Вопрос:" ></textarea>
+        <span asp-validation-for="TextQuetion"></span>
+  @*<div class="QuestionText">*@
+        
+    <div class="create-options" id="create-options">
+        <div class="aa">
+                <div class="containerForButton">
+                <input asp-for="Option1" placeholder="Вариант 1" class="input" minlength="1" maxlength="50" id="1" autocomplete="off" required type="text">
+                <input asp-for="CountPointOfOption1" placeholder="Количество баллов" class="input" minlength="1" maxlength="2" id="1" autocomplete="off" required type="text">
+                </div>
+            <span asp-validation-for="Option1"></span>
+
+                <span asp-validation-for="CountPointOfOption1"></span>
+        </div>
+            <div class="aa">
+                <div class="containerForButton">
+                <input asp-for="Option2" placeholder="Вариант 2" class="input" minlength="1" maxlength="50" autocomplete="off" required id="2" type="text">
+                <input asp-for="CountPointOfOption2" placeholder="Количество баллов" class="input" minlength="1" maxlength="2" id="1" autocomplete="off" required type="text">
+                </div>
+                <span asp-validation-for="CountPointOfOption2"></span>
+                    <span asp-validation-for="Option2"></span>
+            </div>
+                <div class="aa none" id="option3">
+                <div class="containerForButton">
+                <input asp-for="Option3" placeholder="Вариант 3" class="input" minlength="1" maxlength="50" autocomplete="off" id="3" required type="text">
+               
+                <input asp-for="CountPointOfOption3" placeholder="Количество баллов" class="input" minlength="1" maxlength="2" autocomplete="off" required type="number">
+            </div>
+                <span asp-validation-for="Option3"></span>
+                <span asp-validation-for="CountPointOfOption3"></span>
+            </div>
+                <div class="aa none" id="option4" >
+                <div class="containerForButton">
+                <input asp-for="Option4" placeholder="Вариант 4" class="input" minlength="1" maxlength="50" autocomplete="off" id="4" required type="text">
+               
+                <input asp-for="CountPointOfOption4" placeholder="Количество баллов" class="input" minlength="1" maxlength="2"autocomplete="off" required type="number">
+               </div>
+                <span asp-validation-for="Option4"></span>
+                <span asp-validation-for="CountPointOfOption4"></span>
+            </div>
+                <div class="aa none" id="option5" >
+                <div class="containerForButton">
+                <input asp-for="Option5" placeholder="Вариант 5" class="input" minlength="1" maxlength="50" autocomplete="off" id="5" required type="text">
+                <input asp-for="CountPointOfOption5" placeholder="Количество баллов" class="input" minlength="1" maxlength="2" autocomplete="off" required type="number">
+                </div>
+                <span asp-validation-for="Option5"></span>
+
+                <span asp-validation-for="CountPointOfOption5"></span>
+                </div>
+               @* <input asp-for="CorrectAnswer" class="none" type="text" id="CorrectAnswer" name="CorrectAnswer" />
+        <span asp-validation-for="CorrectAnswer" class="text-danger"></span>*@
+
+                <div class="radio-inputs">
+
+                    <button type="button" id="plus" class="Option-button plus ">
+
+        </button>
+                    <button type="button" id="minus" class="Option-button minus none">
+
+                </button>
+                </div>
+    </div>
+
+        <button type="submit" class="login-button" value="Create">
+           Добавить
+        </button>
+        <a asp-action="Index" class="login-button" asp-route-idT="@ViewBag.idT">
+            Назад
+        </a>
+      </form>
+</div>
+
+
+<script src="~/js/question.js">
+
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+<script>
+
+    document.querySelector('#plus').addEventListener('click', () => {
+        const plus = document.querySelector('#plus');
+        const min = document.querySelector('#minus');
+        const option = document.querySelectorAll('.aa.none');
+        if (option.length === 1) plus.classList.add('none');
+
+        option[0].classList.remove('none');
+        if (min.classList.contains('none')) min.classList.remove('none');
+    });
+
+    document.querySelector('#minus').addEventListener('click', () => {
+        const min = document.querySelector('#minus');
+        const plus = document.querySelector('#plus');
+        if (plus.classList.contains('none')) plus.classList.remove('none');
+        const option = document.querySelectorAll('.aa');
+        const None = document.querySelectorAll('.aa.none');
+        for (let i = option.length - 1; i > 1; i--) {
+            if (option[i].classList.contains('none') === false) {
+                console.log("-------");
+                option[i].classList.add('none');
+                option[i].children[1].children[0].value = "";
+                option[i].children[0].children[0].checked = false;
+                break;
+            }
+        }
+        console.log(None.length)
+        if (None.length === 2) {
+            min.classList.add('none');
+            console.log("opopop");
+
+        }
+    })
+  
+
+</script>

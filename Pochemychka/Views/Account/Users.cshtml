@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Pochemychka.Models.User>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<head>
+    <link rel="stylesheet" href="~/css/Table.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Card.css" asp-append-version="true" />
+
+</head>
+<h1>Результаты</h1>
+@*<a asp-action="Index" class="button" asp-controller="Tests" asp-route-idT="@ViewBag.idT">
+            Назад
+        </a>*@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Фамилия
+            </th>
+            <th>
+                Имя
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+               Логин
+            </th>
+            <th style="color:var(--primary-text)">
+                g
+            </th>
+          
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+               @item.LastName 
+            </td>
+             <td>
+               @item.FirstName 
+            </td>
+            <td>
+                @item.Email
+            </td>
+              <td>
+                   @item.UserName
+                </td>
+                <td>
+                  <a asp-action="Delete" class="button" asp-route-id="@item.Id">Удалить</a>
+                </td>
+        </tr>
+}
+    </tbody>
+</table>

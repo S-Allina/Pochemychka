@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Pochemychka.ViewModels.AnswersUserViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<head>
+    <link rel="stylesheet" href="~/css/Table.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Form.css" asp-append-version="true" />
+
+</head>
+<h1>Результаты</h1>
+@*<a asp-action="Index" class="button" asp-controller="Tests" asp-route-idT="@ViewBag.idT">
+            Назад
+        </a>*@
+        @if(User.IsInRole("admin")){
+        <form class="form" asp-action="Index" style="display:grid; grid-template-columns:repeat(6,1fr); gap:10px; width:100vw;">
+            <select name="user" class="input" style="background:white;height:65px" asp-items="@ViewBag.Users"></select>
+        <select name="test" class="input" style="background:white;height:65px" asp-items="@ViewBag.Tests"></select>
+        <input class="input" name="startPoints" style="background:white;height:65px" placeholder="баллы с" type="number">
+        <input class="input" name="endPoints" style="background:white;height:65px" placeholder="баллы по" type="number">
+            <input value="Отфильтровать" type="submit" class="login-button" />
+        <a asp-action="ExportInExcel" class="login-button" >Вывести в Excel</a>
+
+        </form>
+
+        }
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Пользователь
+            </th>
+            <th>
+              Тест
+            </th>
+            <th>
+                Баллы
+            </th>
+            <th>
+               Результат
+            </th>
+            <th>
+                Дата и время прохождения
+            </th>
+         
+          
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+               @item.LastName @item.FirstName
+            </td>
+            <td>
+                @item.NameTest
+            </td>
+              <td>
+                   @item.CountFullPoints
+                </td>
+                <td>
+                   @item.TextResult
+                </td>
+                <td>
+                    @item.Time.ToString("dd.MM.yyyy HH:mm")
+                </td>
+        </tr>
+}
+    </tbody>
+</table>

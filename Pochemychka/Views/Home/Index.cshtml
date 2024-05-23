@@ -1,0 +1,44 @@
+﻿@*@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="containerHome">
+    <h1 class="display-4">Добро пожаловать</h1>
+    <div class="wrapper">
+        <div class="card-switch">
+            <label class="switch">
+                <input type="checkbox" class="toggle">
+                <span class="slider"></span>
+                <span class="card-side"></span>
+                <div class="flip-card__inner">
+                    <div class="flip-card__front">
+                        <div class="title">Авторицация</div>
+                        <form asp-action="LogIn" class="flip-card__form" >
+                            <input class="flip-card__input" name="email" placeholder="Email" type="email">
+                            <input class="flip-card__input" name="password" placeholder="Password" type="password">
+
+                            <span>@ViewBag.Message</span>
+                            <button type="submit" class="flip-card__btn">Let`s go!</button>
+                        </form>
+                    </div>
+                    <div class="flip-card__back">
+                        <div class="title">Регистрация</div>
+                        <form asp-action="Create"  class="flip-card__form" >
+                            <input class="flip-card__input" placeholder="Name" name="UserName" >
+                            <input class="flip-card__input" name="email" placeholder="Email" type="email">
+                            <input class="flip-card__input" name="password" placeholder="Password" type="password">
+                            <button class="flip-card__btn">Confirm!</button>
+                        </form>
+                    </div>
+                </div>
+            </label>
+        </div>
+    </div>
+</div>
+    <img class="imgHome img1" src="~/img/boyWithBack.png"/>
+<img class="imgHome img2" src="~/img/BoyWithBook.png" />
+<img class="imgHome img3" src="~/img/GirlWithBook.png" />
+<img class="imgHome img4" src="~/img/girlWithQuestion.png" />
+<img class="imgHome img5" src="~/img/HappyBoy.png" />
+<img class="imgHome img6" src="~/img/HappyGirl.png" />
+*@
